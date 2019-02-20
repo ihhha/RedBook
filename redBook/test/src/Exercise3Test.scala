@@ -21,11 +21,11 @@ class Exercise3Test extends UnitSpec with Exercise3 {
 	}
 
 	it should "return exception on empty List" in {
-		an [EmptyListException] should be thrownBy List.tail(emptyList)
+		an [NoSuchElementException] should be thrownBy List.tail(emptyList)
 	}
 
 	"SetHead" should "return exception on empty List" in {
-		an [EmptyListException] should be thrownBy List.setHead(emptyList, 0)
+		an [NoSuchElementException] should be thrownBy List.setHead(emptyList, 0)
 	}
 
 	it should "set new head for list" in {
@@ -50,6 +50,26 @@ class Exercise3Test extends UnitSpec with Exercise3 {
 
 	it should "return correct answer" in {
 		List.dropWhile(list9, {x: Int  => x < 4}) shouldBe List(4,5,6,7,8,9)
+	}
+
+	"Init" should "return all List except last elem" in {
+		List.init(list3) shouldBe List(1,2)
+	}
+
+	it should "return empty list for one elem list" in {
+		List.init(List(1)) shouldBe Nil
+	}
+
+	it should "return exception for empty list" in {
+		an [NoSuchElementException] should be thrownBy List.init(Nil)
+	}
+
+	"Revert" should "correctly revert list" in {
+		List.revert(list9) shouldBe List(9,8,7,6,5,4,3,2,1)
+	}
+
+	"Plus" should "correctly plus lists" in {
+		List.plus(List(1,2), List(3,4,5)) shouldBe List(1,2,3,4,5)
 	}
 
 }
