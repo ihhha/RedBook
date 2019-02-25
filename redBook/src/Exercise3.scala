@@ -23,23 +23,15 @@ trait Exercise3 {
 			case Cons(_, tail) => Cons(newHead, tail)
 		}
 
-		def drop[A](l: List[A], n: Int): List[A] = {
-			def loop(count: Int, tempList: List[A]): List[A] = tempList match {
-				case Cons(_, tail) => if(count == n-1) tail else loop(count + 1, tail)
-				case  nil => nil
+		def drop[A](l: List[A], n: Int): List[A] = l match {
+				case Cons(_, tail) => if(n == 0) l else drop(tail, n-1)
+				case  _ => Nil
 			}
 
-			loop(0,l)
-		}
-
-		def dropWhile[A](l: List[A], f: A=>Boolean): List[A] = {
-			def loop(count: Int, tempList: List[A]): List[A] = tempList match {
-				case Cons(head, tail) => if(f(head)) loop(count + 1, tail) else tempList
-				case nil => nil
+		def dropWhile[A](l: List[A], f: A=>Boolean): List[A] = l match {
+				case Cons(head, tail) => if(f(head)) dropWhile(tail, f) else l
+				case _ => Nil
 			}
-
-			loop(0,l)
-		}
 
 		def revert[A](l: List[A]): List[A] = {
 			def loop(left: List[A], right: List[A]): List[A] = left match {
